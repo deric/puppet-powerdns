@@ -41,6 +41,7 @@ class powerdns::params {
       $recursor_package = 'pdns-recursor'
       $recursor_service = 'pdns-recursor'
       $recursor_config = '/etc/pdns-recursor/recursor.conf'
+      $install_packages = []
     }
     'Debian': {
       $authoritative_package = 'pdns-server'
@@ -62,6 +63,32 @@ class powerdns::params {
       $recursor_package = 'pdns-recursor'
       $recursor_service = 'pdns-recursor'
       $recursor_config = '/etc/powerdns/recursor.conf'
+
+      case $facts['os']['name'] {
+        'Debian': {
+          case $facts['os']['release']['major'] {
+            '8': {
+               $install_packages = []
+            }
+            default: {
+               $install_packages = ['dirmngr']
+            }
+          }
+        }
+        'Ubuntu': {
+          case $facts['os']['release']['major'] {
+            '16.04': {
+              $install_packages = []
+            }
+            default: {
+              $install_packages = ['dirmngr']
+            }
+          }
+        }
+        default: {
+          $install_packages = []
+        }
+      }
     }
     'FreeBSD': {
       $authoritative_package = 'powerdns'
@@ -83,6 +110,7 @@ class powerdns::params {
       $recursor_package = 'powerdns-recursor'
       $recursor_service = 'pdns-recursor'
       $recursor_config = '/usr/local/etc/pdns/recursor.conf'
+      $install_packages = []
     }
     default: {
       fail("${facts['os']['family']} is not supported yet.")
