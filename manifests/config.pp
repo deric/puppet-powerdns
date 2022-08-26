@@ -22,7 +22,8 @@ define powerdns::config (
     $line = $setting
   } else {
     if $value =~ Sensitive {
-      $line = "${setting}=${value.unwrap}"
+      $secret = $value.unwrap
+      $line = "${setting}=${secret}"
     } else {
       $line = "${setting}=${value}"
     }
