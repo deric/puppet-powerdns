@@ -40,7 +40,8 @@ class powerdns::params {
       $authoritative_configdir = '/etc/pdns'
       $recursor_package = 'pdns-recursor'
       $recursor_service = 'pdns-recursor'
-      $recursor_config = '/etc/pdns-recursor/recursor.conf'
+      $recursor_dir = '/etc/pdns-recursor'
+      $recursor_config = "${recursor_dir}/recursor.conf"
       $install_packages = []
     }
     'Debian': {
@@ -62,7 +63,8 @@ class powerdns::params {
       $authoritative_configdir = '/etc/powerdns'
       $recursor_package = 'pdns-recursor'
       $recursor_service = 'pdns-recursor'
-      $recursor_config = '/etc/powerdns/recursor.conf'
+      $recursor_dir = '/etc/powerdns'
+      $recursor_config = "${recursor_dir}/recursor.conf"
 
       case $facts['os']['name'] {
         'Debian': {
@@ -109,7 +111,8 @@ class powerdns::params {
       $authoritative_configdir = '/usr/local/etc/pdns'
       $recursor_package = 'powerdns-recursor'
       $recursor_service = 'pdns-recursor'
-      $recursor_config = '/usr/local/etc/pdns/recursor.conf'
+      $recursor_dir = '/usr/local/etc/pdns'
+      $recursor_config = "${recursor_dir}/recursor.conf"
       $install_packages = []
     }
     default: {

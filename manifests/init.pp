@@ -25,6 +25,7 @@ class powerdns (
   String[1]                  $mysql_schema_file                  = $powerdns::params::mysql_schema_file,
   String[1]                  $pgsql_schema_file                  = $powerdns::params::pgsql_schema_file,
   Optional[Array[String]]    $install_packages                   = $powerdns::params::install_packages,
+  Hash                       $forward_zones                      = {},
 ) inherits powerdns::params {
   # Do some additional checks. In certain cases, some parameters are no longer optional.
   if $authoritative {
