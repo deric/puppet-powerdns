@@ -19,6 +19,7 @@ class powerdns::recursor (
       owner   => 'root',
       group   => 'root',
       content => template('powerdns/forward_zones.conf.erb'),
+      notify  => Service['pdns-recursor'],
     }
 
     powerdns::config { 'forward-zones-file':
@@ -29,9 +30,9 @@ class powerdns::recursor (
 
   service { 'pdns-recursor':
     ensure   => running,
-    name     => $::powerdns::params::recursor_service,
+    name     => $powerdns::params::recursor_service,
     enable   => true,
-    provider => [$::powerdns::params::service_provider],
-    require  => Package[$::powerdns::params::recursor_package],
+    provider => [$powerdns::params::service_provider],
+    require  => Package[$powerdns::params::recursor_package],
   }
 }
